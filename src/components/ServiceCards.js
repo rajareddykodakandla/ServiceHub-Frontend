@@ -7,7 +7,7 @@ const services = [
   { title: 'Electrical', description: 'Wiring & Fixtures', icon: '💡' },
 ];
 
-const ServiceCards = () => {
+const ServiceCards = ({ onBookNow }) => {
   return (
     <div className="container mx-auto py-10">
       <h2 className="text-2xl font-bold text-gray-800 text-center">Popular Services</h2>
@@ -17,7 +17,12 @@ const ServiceCards = () => {
             <div className="text-4xl">{service.icon}</div>
             <h3 className="text-xl font-bold mt-4">{service.title}</h3>
             <p className="text-gray-600 mt-2">{service.description}</p>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4">Book Now</button>
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded mt-4"
+              onClick={onBookNow}
+            >
+              Book Now
+            </button>
           </div>
         ))}
       </div>

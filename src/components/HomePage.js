@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import ServiceCards from './ServiceCards';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
@@ -12,7 +15,7 @@ const HomePage = () => {
         <p className="text-gray-600 mt-4">Connect with skilled professionals for all your home service needs</p>
         <SearchBar />
       </div>
-      <ServiceCards />
+      <ServiceCards onBookNow={() => navigate('/login')} />
     </div>
   );
 };
