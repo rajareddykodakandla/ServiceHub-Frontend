@@ -5,10 +5,10 @@ import axios from 'axios';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false); // State to toggle between login and sign-up
+  const [isSignUp, setIsSignUp] = useState(false); 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState('customer'); // Default role
+  const [role, setRole] = useState('customer'); 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -44,7 +44,8 @@ const LoginPage = () => {
       });
       if (response.status === 201) {
         alert('Sign-up successful! Please log in.');
-        setIsSignUp(false); // Switch back to login card
+        setIsSignUp(false); 
+        
       }
     } catch (error) {
       console.error('Error during sign-up:', error);
