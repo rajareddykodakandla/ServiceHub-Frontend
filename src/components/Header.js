@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.jpg';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -7,7 +8,10 @@ const Header = () => {
   return (
     <header className="bg-blue-600 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold">ServiceHub</h1>
+        <div className="flex items-center space-x-2">
+          <img src={logo} alt="ServiceHub Logo" className="h-6" />
+          <h1 className="text-2xl font-bold">ServiceHub</h1>
+        </div>
         <nav>
           <ul className="flex space-x-6">
             <li><a href="/home" className="hover:underline">Home</a></li>
