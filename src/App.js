@@ -8,6 +8,9 @@ import ProviderList from "./components/providerList";
 import AppointmentBookingPage from "./components/appintmentBooking.js";
 import PaymentDetailsPage from "./components/paymentPage.js"
 import MyAppointmentsPage from "./components/myAppointments.js";
+import ProviderDashboard from "./components/providerDashboard.js";
+import ProfilePage from "./components/profilePage.js";
+import ReviewSubmissionPage from "./components/reviewSubmission.js";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
       <Route path="/appointmentBooking" element={<AppointmentBookingPage />} />
       <Route path="/payment" element={<PaymentDetailsPage />} />
       <Route path="/myAppointments" element={<MyAppointmentsPage />} />
+      <Route path="/providerDashboard" element={<ProviderDashboard />} />
+      <Route path="/profilePage" element={<ProfilePage />} />
+      <Route path="/reviewSubmission" element={<ReviewSubmissionPage />} />
     </Routes>
   );
 }

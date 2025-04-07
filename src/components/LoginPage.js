@@ -13,23 +13,24 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/admin/login', {
-        email,
-        password,
-      });
-      if (response.status === 200) {
-        alert('Login successful!');
-        navigate('/home');
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        alert('Invalid login credentials');
-      } else {
-        console.error('Error during login:', error);
-        alert('An error occurred. Please try again.');
-      }
-    }
+    navigate('/providerDashboard')
+    // try {
+    //   const response = await axios.post('http://localhost:5000/api/admin/login', {
+    //     email,
+    //     password,
+    //   });
+    //   if (response.status === 200) {
+    //     alert('Login successful!');
+    //     navigate('/home');
+    //   }
+    // } catch (error) {
+    //   if (error.response && error.response.status === 401) {
+    //     alert('Invalid login credentials');
+    //   } else {
+    //     console.error('Error during login:', error);
+    //     alert('An error occurred. Please try again.');
+    //   }
+    // }
   };
 
   const handleSignUp = async (e) => {
@@ -154,7 +155,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-                Continue with email
+                Login
               </button>
             </form>
             <p className="text-center mt-4 text-gray-600">
