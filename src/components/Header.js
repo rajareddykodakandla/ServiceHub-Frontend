@@ -13,6 +13,8 @@ const Header = () => {
             <li><a href="/home" className="hover:underline">Home</a></li>
             <li><a href="/mybookings" className="hover:underline">My Bookings</a></li>
             <li><a href="/about" className="hover:underline">About</a></li>
+            <li><a href="/profilePage" className="hover:underline">Profile</a></li>
+            <li><a href="/reviewSubmission" className="hover:underline">Submit review</a></li>
           </ul>
         </nav>
         <button
