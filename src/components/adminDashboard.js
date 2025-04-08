@@ -22,14 +22,12 @@ const AdminDashboardPage = () => {
       "Plumbing",
       "Electrical",
       "Painting",
-      "Carpentry",
-      "Cleaning",
-      "Landscaping",
+      "Carpentry"
     ],
     datasets: [
       {
         label: "Performance (%)",
-        data: [70, 90, 50, 80, 60, 40],
+        data: [70, 90, 50, 80],
         backgroundColor: "rgba(37, 99, 235, 0.8)", // blue-600 equivalent
         hoverBackgroundColor: "rgba(29, 78, 216, 0.9)", // blue-700 equivalent
       },
