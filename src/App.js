@@ -11,6 +11,8 @@ import MyAppointmentsPage from "./components/myAppointments.js";
 import ProviderDashboard from "./components/providerDashboard.js";
 import ProfilePage from "./components/profilePage.js";
 import ReviewSubmissionPage from "./components/reviewSubmission.js";
+import ChangePasswordPage from "./components/changePassword.js";
+import AdminDashboardPage from "./components/adminDashboard.js";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
       <Route path="/providerDashboard" element={<ProviderDashboard />} />
       <Route path="/profilePage" element={<ProfilePage />} />
       <Route path="/reviewSubmission" element={<ReviewSubmissionPage />} />
+      <Route path="/changePassword" element={<ChangePasswordPage />} />
+      <Route path="/adminDashboard" element={<AdminDashboardPage />} />
     </Routes>
   );
 }
