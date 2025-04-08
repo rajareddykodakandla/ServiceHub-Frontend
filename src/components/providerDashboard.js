@@ -5,18 +5,14 @@ import Footer from "./Footer";
 const ProviderDashboard = () => {
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Fixed Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
-
-      {/* Main content with top and bottom padding to avoid overlap with fixed header/footer */}
       <main className="pt-[100px] pb-[80px] container mx-auto px-6 overflow-y-auto">
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-10">
           Provider Dashboard
         </h1>
 
-        {/* Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           <div className="bg-white rounded-xl shadow-lg p-6">
             <p className="text-gray-500 uppercase tracking-wide text-sm mb-2">
@@ -50,7 +46,6 @@ const ProviderDashboard = () => {
           </div>
         </div>
 
-        {/* Today's Appointments */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-10">
           <div className="mb-6">
             <h2 className="text-xl font-bold text-gray-800">
@@ -93,7 +88,6 @@ const ProviderDashboard = () => {
           </table>
         </div>
 
-        {/* Service Availability */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-3">
             Service Availability
@@ -118,7 +112,6 @@ const ProviderDashboard = () => {
         </div>
       </main>
 
-      {/* Fixed Footer */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
         <Footer />
       </div>

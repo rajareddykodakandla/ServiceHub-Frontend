@@ -3,10 +3,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const ReviewSubmissionPage = () => {
-  // Overall star rating (1 to 5)
   const [starRating, setStarRating] = useState(0);
 
-  // Criteria ratings for each category
   const [criteriaRatings, setCriteriaRatings] = useState({
     professionalism: 0,
     valueForMoney: 0,
@@ -14,17 +12,14 @@ const ReviewSubmissionPage = () => {
     qualityOfWork: 0,
   });
 
-  // Review text
   const [reviewText, setReviewText] = useState(
     "The plumber arrived on time and fixed the leak quickly. He was professional and explained the issue clearly. Price was reasonable for the quality of work."
   );
 
-  // Handle overall star rating click
   const handleStarClick = (value) => {
     setStarRating(value);
   };
 
-  // Handle criteria rating click
   const handleCriteriaClick = (criteria, value) => {
     setCriteriaRatings((prev) => ({
       ...prev,
@@ -32,14 +27,11 @@ const ReviewSubmissionPage = () => {
     }));
   };
 
-  // Submit the review
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Process the review (e.g., send to backend)
     alert("Review submitted successfully!");
   };
 
-  // Render overall star rating
   const renderStars = () => {
     const labels = ["Poor", "Fair", "Good", "Very Good", "Excellent"];
     return labels.map((label, index) => {
@@ -73,7 +65,6 @@ const ReviewSubmissionPage = () => {
     });
   };
 
-  // Render bullet ratings for a given criteria (1 to 5)
   const renderBulletRating = (criteria) => {
     const bullets = [1, 2, 3, 4, 5];
     return (
@@ -96,12 +87,10 @@ const ReviewSubmissionPage = () => {
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Sticky Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
 
-      {/* Main Content */}
       <main className="pt-[80px] pb-[80px] container mx-auto px-4 flex-grow overflow-y-auto">
         <form
           onSubmit={handleSubmit}
@@ -114,7 +103,6 @@ const ReviewSubmissionPage = () => {
             Mike's Professional Plumbing - Leak Repair Service - April 1, 2025
           </p>
 
-          {/* Overall Star Rating */}
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-gray-700 mb-4 text-center">
               How would you rate this service?
@@ -122,7 +110,6 @@ const ReviewSubmissionPage = () => {
             <div className="flex justify-center">{renderStars()}</div>
           </div>
 
-          {/* Criteria Ratings */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
             <div>
               <p className="text-gray-700 font-medium mb-2">
@@ -148,7 +135,6 @@ const ReviewSubmissionPage = () => {
             </div>
           </div>
 
-          {/* Review Textarea */}
           <div className="mb-8">
             <label className="block text-gray-700 font-medium mb-2">
               Write Your Review
@@ -161,7 +147,6 @@ const ReviewSubmissionPage = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <div className="text-center">
             <button
               type="submit"
@@ -173,7 +158,6 @@ const ReviewSubmissionPage = () => {
         </form>
       </main>
 
-      {/* Sticky Footer */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
         <Footer />
       </div>

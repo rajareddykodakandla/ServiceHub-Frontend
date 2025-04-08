@@ -22,7 +22,6 @@ const PaymentDetailsPage = () => {
 
   const handlePay = (e) => {
     e.preventDefault();
-    // Process payment here
     alert("Payment processed successfully!");
     navigate("/myAppointments")
   };
@@ -37,7 +36,6 @@ const PaymentDetailsPage = () => {
             Payment Details
           </h2>
           <form onSubmit={handlePay} className="space-y-5">
-            {/* Card Number */}
             <div>
               <label className="block text-gray-700 font-medium mb-1" htmlFor="cardNumber">
                 Card Number
@@ -53,7 +51,6 @@ const PaymentDetailsPage = () => {
                 required
               />
             </div>
-            {/* Expiration and CVV */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-700 font-medium mb-1" htmlFor="expiration">
@@ -86,7 +83,6 @@ const PaymentDetailsPage = () => {
                 />
               </div>
             </div>
-            {/* Billing Address */}
             <div>
               <label className="block text-gray-700 font-medium mb-1" htmlFor="address">
                 Billing Address
@@ -102,7 +98,6 @@ const PaymentDetailsPage = () => {
                 required
               />
             </div>
-            {/* City and ZIP Code */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-700 font-medium mb-1" htmlFor="city">
@@ -135,7 +130,6 @@ const PaymentDetailsPage = () => {
                 />
               </div>
             </div>
-            {/* Pay Button */}
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
