@@ -10,7 +10,7 @@ const ServiceProvider = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header /> /* generic header */
       <main className="flex-grow bg-gray-100">
         <div className="container mx-auto p-4">
           <div className="bg-white shadow rounded p-4">
