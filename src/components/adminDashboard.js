@@ -12,11 +12,10 @@ import {
   Legend,
 } from "chart.js";
 
-// Register necessary Chart.js components
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const AdminDashboardPage = () => {
-  // Sample chart data
   const chartData = {
     labels: [
       "Plumbing",
@@ -28,8 +27,8 @@ const AdminDashboardPage = () => {
       {
         label: "Performance (%)",
         data: [70, 90, 50, 80],
-        backgroundColor: "rgba(37, 99, 235, 0.8)", // blue-600 equivalent
-        hoverBackgroundColor: "rgba(29, 78, 216, 0.9)", // blue-700 equivalent
+        backgroundColor: "rgba(37, 99, 235, 0.8)", 
+        hoverBackgroundColor: "rgba(29, 78, 216, 0.9)", 
       },
     ],
   };
@@ -55,19 +54,15 @@ const AdminDashboardPage = () => {
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Fixed Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
 
-      {/* Main Content */}
       <main className="pt-[80px] pb-[80px] container mx-auto px-4 flex-grow overflow-y-auto">
-        {/* Centered Dashboard Title */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800">Admin Dashboard</h1>
         </div>
 
-        {/* Recent Bookings Section */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <h2 className="text-xl font-bold text-gray-700 mb-4">Recent Bookings</h2>
           <div className="overflow-x-auto">
@@ -120,13 +115,11 @@ const AdminDashboardPage = () => {
           </div>
         </div>
 
-        {/* Service Performance Graph Section */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <Bar data={chartData} options={chartOptions} />
         </div>
       </main>
 
-      {/* Fixed Footer */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
         <Footer />
       </div>

@@ -22,25 +22,20 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Process the updated profile information (e.g., call an API)
     alert("Profile updated successfully!");
   };
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Fixed Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
-
-      {/* Main Content */}
       <main className="pt-[80px] pb-[80px] container mx-auto px-4 flex-grow overflow-y-auto">
         <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-10">
           <h1 className="text-4xl font-bold text-gray-800 text-center mb-10">
             Manage Your Profile
           </h1>
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Full Name and Username */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
@@ -71,8 +66,6 @@ const ProfilePage = () => {
                 />
               </div>
             </div>
-
-            {/* Email and Phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
@@ -102,8 +95,6 @@ const ProfilePage = () => {
                 />
               </div>
             </div>
-
-            {/* Address, City, and ZIP Code */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="md:col-span-2">
                 <label className="block text-gray-700 font-semibold mb-2">
@@ -160,8 +151,6 @@ const ProfilePage = () => {
                 />
               </div>
             </div>
-
-            {/* Gender */}
             <div>
               <label className="block text-gray-700 font-semibold mb-2">
                 Gender
@@ -179,8 +168,6 @@ const ProfilePage = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-
-            {/* Submit Button */}
             <div className="text-center mt-10">
               <button
                 type="submit"
@@ -192,8 +179,6 @@ const ProfilePage = () => {
           </form>
         </div>
       </main>
-
-      {/* Fixed Footer */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
         <Footer />
       </div>

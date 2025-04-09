@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const MyAppointmentsPage = () => {
-    // Sample bookings data (In a real app, this data may come from an API)
+
     const [bookings] = useState([
         {
             id: 1,
@@ -54,14 +54,13 @@ const MyAppointmentsPage = () => {
     ]);
 
     return (
-        // Use a relative container to hold fixed Header and Footer
+    
         <div className="relative min-h-screen bg-gray-100">
-            {/* Fixed Header */}
+            
             <div className="fixed top-0 left-0 right-0 z-50">
                 <Header />
             </div>
 
-            {/* Main content with top and bottom padding to account for fixed Header and Footer */}
             <main className="pt-20 pb-20 container mx-auto px-4 py-8">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
                     My Bookings
@@ -77,7 +76,7 @@ const MyAppointmentsPage = () => {
                                 key={booking.id}
                                 className="w-[800px] mx-auto bg-white rounded-2xl shadow-xl p-6 transform transition duration-300 hover:scale-105"
                             >
-                                {/* Service, Provider, and Address */}
+                                
                                 <div className="mb-4">
                                     <h2 className="text-2xl font-bold text-gray-800">
                                         {booking.service}
@@ -85,7 +84,7 @@ const MyAppointmentsPage = () => {
                                     <p className="text-lg text-gray-600">{booking.providerName}</p>
                                     <p className="text-gray-500 text-sm">{booking.address}</p>
                                 </div>
-                                {/* Date, Time, and Status */}
+                              
                                 <div className="flex justify-between items-center">
                                     <div>
                                         <p className="text-gray-700 font-medium">
@@ -108,7 +107,7 @@ const MyAppointmentsPage = () => {
                                         {booking.status}
                                     </span>
                                 </div>
-                                {/* Divider and Button */}
+                               
                                 <div className="mt-6 border-t border-gray-200 pt-4 text-center">
                                     <Link
                                         to={`/booking/${booking.id}`}
@@ -123,7 +122,6 @@ const MyAppointmentsPage = () => {
                 )}
             </main>
 
-            {/* Fixed Footer */}
             <div className="fixed bottom-0 left-0 right-0 z-50">
                 <Footer />
             </div>
