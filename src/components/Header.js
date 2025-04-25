@@ -4,6 +4,8 @@ import logo from '../assets/logo.jpg';
 
 const Header = () => {
   const navigate = useNavigate();
+  // Check login state from localStorage
+  const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <header className="bg-blue-600 text-white py-4">
@@ -21,12 +23,25 @@ const Header = () => {
             <li><a href="/reviewSubmission" className="hover:underline">Submit review</a></li>
           </ul>
         </nav>
-        <button
-          className="bg-white text-blue-600 px-4 py-2 rounded"
-          onClick={() => navigate('/login')}
-        >
-          Sign In
-        </button>
+        {user ? (
+          <button
+            className="rounded-full bg-gray-200 w-10 h-10 flex items-center justify-center border border-gray-300 hover:ring-2 hover:ring-blue-400"
+            onClick={() => navigate('/profilePage')}
+            title="Profile"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 24 24" width="28" height="28">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 8-4 8-4s8 0 8 4v1H4v-1z" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            className="bg-white text-blue-600 px-4 py-2 rounded"
+            onClick={() => navigate('/login')}
+          >
+            Sign In
+          </button>
+        )}
       </div>
     </header>
   );

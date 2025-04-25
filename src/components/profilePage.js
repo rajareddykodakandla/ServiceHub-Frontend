@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
@@ -14,6 +15,7 @@ const ProfilePage = () => {
     dob: "",
     gender: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +25,11 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Profile updated successfully!");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/home');
   };
 
   return (
@@ -168,12 +175,19 @@ const ProfilePage = () => {
                 <option value="other">Other</option>
               </select>
             </div>
-            <div className="text-center mt-10">
+            <div className="text-center mt-10 flex justify-center gap-4">
               <button
                 type="submit"
                 className="bg-blue-600 text-white px-10 py-3 rounded-xl text-lg font-semibold hover:bg-blue-700 transition-colors"
               >
                 Save Changes
+              </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="bg-gray-300 text-gray-800 px-10 py-3 rounded-xl text-lg font-semibold hover:bg-gray-400 transition-colors"
+              >
+                Logout
               </button>
             </div>
           </form>
