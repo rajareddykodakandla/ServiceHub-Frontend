@@ -21,7 +21,7 @@ const HomePage = () => {
           </p>
           <SearchBar />
         </div>
-        <ServiceCards onBookNow={() => navigate("/login")} />
+        <ServiceCards />
       </main>
       <Footer />
     </div>

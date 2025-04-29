@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const services = [
   { title: "Plumbing", description: "Repairs & Installation", icon: "🔧" },
@@ -9,6 +9,16 @@ const services = [
 ];
 
 const ServiceCards = () => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(() =>
+    Boolean(localStorage.getItem("user"))
+  );
+
+  useEffect(() => {
+    // example effect, e.g. re-check login on mount
+    console.log("ServiceCards mounted, logged in:", isLoggedIn);
+  }, [isLoggedIn]);
+
   return (
     <div className="container mx-auto py-10">
       <h2 className="text-2xl font-bold text-gray-800 text-center">
@@ -23,13 +33,26 @@ const ServiceCards = () => {
             <div className="text-4xl">{service.icon}</div>
             <h3 className="text-xl font-bold mt-4">{service.title}</h3>
             <p className="text-gray-600 mt-2">{service.description}</p>
-            <Link
-              to={`/providers?service=${encodeURIComponent(service.title)}`}
-            >
-              <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4">
+
+            {/* Ternary picks one complete JSX element */}
+            {isLoggedIn ? (
+              <Link
+                to={`/providers?service=${encodeURIComponent(
+                  service.title
+                )}`}
+              >
+                <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4">
+                  Book Now
+                </button>
+              </Link>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-blue-600 text-white px-4 py-2 rounded mt-4"
+              >
                 Book Now
               </button>
-            </Link>
+            )}
           </div>
         ))}
       </div>

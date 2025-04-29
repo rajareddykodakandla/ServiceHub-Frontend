@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 import Header from "./Header";
 import Footer from "./Footer";
+import axios from "axios";
 
 const ReviewSubmissionPage = () => {
+  const navigate = useNavigate()
   const [starRating, setStarRating] = useState(0);
 
   const [criteriaRatings, setCriteriaRatings] = useState({
@@ -13,7 +16,7 @@ const ReviewSubmissionPage = () => {
   });
 
   const [reviewText, setReviewText] = useState(
-    "The plumber arrived on time and fixed the leak quickly. He was professional and explained the issue clearly. Price was reasonable for the quality of work."
+    ""
   );
 
   const handleStarClick = (value) => {
@@ -21,15 +24,44 @@ const ReviewSubmissionPage = () => {
   };
 
   const handleCriteriaClick = (criteria, value) => {
-    setCriteriaRatings((prev) => ({
-      ...prev,
-      [criteria]: value,
-    }));
+    setCriteriaRatings((prev) => {
+      const updated = {
+        ...prev,
+        [criteria]: value,
+      };
+  
+      const overall = calculateOverallRating(updated);
+      setStarRating(Math.round(overall)); 
+  
+      return updated;
+    });
   };
 
-  const handleSubmit = (e) => {
+  function calculateOverallRating(ratings) {
+    const ratingValues = Object.values(ratings);
+
+    const total = ratingValues.reduce((sum, value) => sum + value, 0);
+    const average = total / ratingValues.length;
+
+    const overallRating = Math.round(average * 10) / 10;
+
+    return overallRating;
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Review submitted successfully!");
+    const overall = calculateOverallRating(criteriaRatings);
+    
+    const reviewData = JSON.parse(localStorage.getItem("reviewData"))
+    
+    await axios.post("http://127.0.0.1:5000/servicehub/createReview", {
+      booking_id: reviewData.bookingId,
+      customer_id: reviewData.customerId,
+      provider_id: reviewData.providerId,
+      rating: overall,
+      comment: reviewText
+    })
+    navigate("/mybookings")
   };
 
   const renderStars = () => {
@@ -99,9 +131,6 @@ const ReviewSubmissionPage = () => {
           <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
             Rate Your Experience
           </h1>
-          <p className="text-center text-gray-500 mb-8">
-            Mike's Professional Plumbing - Leak Repair Service - April 1, 2025
-          </p>
 
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-gray-700 mb-4 text-center">
@@ -112,15 +141,11 @@ const ReviewSubmissionPage = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
             <div>
-              <p className="text-gray-700 font-medium mb-2">
-                Professionalism
-              </p>
+              <p className="text-gray-700 font-medium mb-2">Professionalism</p>
               {renderBulletRating("professionalism")}
             </div>
             <div>
-              <p className="text-gray-700 font-medium mb-2">
-                Value for Money
-              </p>
+              <p className="text-gray-700 font-medium mb-2">Value for Money</p>
               {renderBulletRating("valueForMoney")}
             </div>
             <div>
@@ -128,9 +153,7 @@ const ReviewSubmissionPage = () => {
               {renderBulletRating("punctuality")}
             </div>
             <div>
-              <p className="text-gray-700 font-medium mb-2">
-                Quality of Work
-              </p>
+              <p className="text-gray-700 font-medium mb-2">Quality of Work</p>
               {renderBulletRating("qualityOfWork")}
             </div>
           </div>

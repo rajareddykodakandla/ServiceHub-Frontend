@@ -1,16 +1,61 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useState } from "react";
+import axios from "axios";
 
 const ServiceProvider = () => {
 
+  const { id } = useParams();
+
   const [activeTab, setActiveTab] = useState('services');
+
+  const [providerData, setProviderData] = useState('')
+
+  useEffect(() => {
+    const fetchProviderById = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:5000/servicehub/provider/${id}`
+        );
+        setProviderData(response.data)
+      } catch (error) {
+        console.error('Failed to fetch provider', error);
+      }
+    };
+
+    fetchProviderById();
+  }, []);
+
+  // console.log("provider", providerData)
+
+
+  const serviceFilter = localStorage.getItem("serviceFilter")?.toLowerCase().trim();
+
+const test = providerData?.services || [];
+
+const test1 = test.filter(data => data.service_name?.toLowerCase().trim() === serviceFilter);
+
+
+
+const subservce = test1[0]?.subservices || []
+
+const allSubservices = subservce.filter(data => data.status);
+
+console.log("filter", test1);
+
+
+
+  // const allSubservices = test1?.flatMap(service => service.subservices)
+    
+
+  localStorage.setItem("allSubservices", JSON.stringify(allSubservices))
+  localStorage.setItem("provider", JSON.stringify(providerData?.provider))
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header /> /* generic header */
+      <Header />
       <main className="flex-grow bg-gray-100">
         <div className="container mx-auto p-4">
           <div className="bg-white shadow rounded p-4">
@@ -19,7 +64,7 @@ const ServiceProvider = () => {
                 <div className="text-5xl mr-4">👨‍🔧</div>
                 <div>
                   <h2 className="text-2xl font-bold">
-                    John's Plumbing Services
+                    {providerData?.provider?.company_name}
                   </h2>
                   <div className="flex items-center flex-wrap space-x-2 text-sm text-gray-500">
                     <div className="flex items-center text-yellow-500">
@@ -31,10 +76,10 @@ const ServiceProvider = () => {
                       >
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.188 3.657a1 1 0 00.95.69h3.847c.969 0 1.371 1.24.588 1.81l-3.115 2.26a1 1 0 00-.363 1.118l1.188 3.657c.3.921-.755 1.688-1.54 1.118L10 14.011l-3.115 2.26c-.784.57-1.839-.197-1.539-1.118l1.188-3.657a1 1 0 00-.363-1.118l-3.115-2.26c-.783-.57-.38-1.81.588-1.81h3.847a1 1 0 00.95-.69l1.188-3.657z" />
                       </svg>
-                      4.25
+                      {providerData?.provider?.ratings}
                     </div>
-                    <span>(48 reviews)</span>
-                    <span>• Seattle, WA</span>
+                    <span>{providerData?.reviews?.length} Reviews</span>
+                    <span>• {providerData?.provider?.city}, {providerData?.provider?.state}</span>
                   </div>
                   <span className="inline-block bg-green-100 text-green-700 px-2 py-1 rounded text-xs mt-2">
                     Available
@@ -86,52 +131,50 @@ const ServiceProvider = () => {
               <div className="mt-6 space-y-4">
                 {activeTab === 'services' && (
                   <div>
-                    <div className="flex items-center justify-between m-4">
-                      <div>
-                        <h3 className="font-semibold text-lg">Pipe Repair</h3>
-                        <p className="text-sm text-gray-600">
-                          Fix leaking pipes, replace damaged sections, repair joints
-                        </p>
+                    {allSubservices.map((subservice, index) => (
+                      <div key={index} className="flex items-center justify-between m-4">
+                        <div>
+                          <h3 className="font-semibold text-lg">{subservice.subservice_name}</h3>
+                          {subservice.description && (
+                            <p className="text-sm text-gray-600">
+                              {subservice.description}
+                            </p>
+                          )}
+                        </div>
+                        <div className="text-right">
+                          <span className="font-bold text-lg">${subservice.price}</span>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <span className="font-bold text-lg">$75</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between m-4">
-                      <div>
-                        <h3 className="font-semibold text-lg">Fixture Installation</h3>
-                        <p className="text-sm text-gray-600">
-                          Replace or install new fixtures in kitchen or bathroom
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span className="font-bold text-lg">$120</span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 )}
 
                 {activeTab === 'reviews' && (
                   <div>
-                    <div className="border p-4 m-4 rounded">
-                      <p className="font-semibold">John Doe</p>
-                      <p className="text-sm text-gray-600">
-                        Great service, very professional!
-                      </p>
-                    </div>
-                    <div className="border p-4 m-4 rounded">
-                      <p className="font-semibold">Jane Smith</p>
-                      <p className="text-sm text-gray-600">
-                        Satisfied with the repair work.
-                      </p>
-                    </div>
+                    {providerData?.reviews?.length > 0 ? (
+                      providerData.reviews.map((review, index) => (
+                        <div key={index} className="border p-4 m-4 rounded">
+                          <p className="font-semibold">Customer #{review.customer_id}</p>
+                          <p className="text-sm text-gray-600">
+                            {review.comment || "No comment provided."}
+                          </p>
+                          <p className="text-sm text-yellow-500 font-bold">
+                            ⭐ {review.rating} / 5
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center text-gray-500 mt-4">
+                        No reviews yet.
+                      </div>
+                    )}
                   </div>
                 )}
 
                 {activeTab === 'about' && (
                   <div>
                     <p>
-                      About the provider: Experienced and reliable services in plumbing, with over 10 years in the industry.
+                      {providerData?.provider?.description}
                     </p>
                   </div>
                 )}

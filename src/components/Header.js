@@ -4,7 +4,6 @@ import logo from '../assets/logo.jpg';
 
 const Header = () => {
   const navigate = useNavigate();
-  // Check login state from localStorage
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
@@ -16,11 +15,9 @@ const Header = () => {
         </div>
         <nav>
           <ul className="flex space-x-6">
-            <li><a href="/home" className="hover:underline">Home</a></li>
-            <li><a href="/mybookings" className="hover:underline">My Bookings</a></li>
+            {(user && user.role == "customer") && (<li><a href="/home" className="hover:underline">Home</a></li>)}
+            {(user && user.role == "customer") && (<li><a href="/mybookings" className="hover:underline">My Bookings</a></li>)}
             <li><a href="/about" className="hover:underline">About</a></li>
-            <li><a href="/profilePage" className="hover:underline">Profile</a></li>
-            <li><a href="/reviewSubmission" className="hover:underline">Submit review</a></li>
           </ul>
         </nav>
         {user ? (
