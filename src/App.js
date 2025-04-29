@@ -13,11 +13,13 @@ import ProfilePage from "./components/profilePage.js";
 import ReviewSubmissionPage from "./components/reviewSubmission.js";
 import ChangePasswordPage from "./components/changePassword.js";
 import AdminDashboardPage from "./components/adminDashboard.js";
+import AboutPage from "./components/aboutPage.js";
 
 function App() {
   return (
     <Routes>
       <Route path="/home" element={<HomePage />} />
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/mybookings" element={<MyAppointmentsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<HomePage />} />

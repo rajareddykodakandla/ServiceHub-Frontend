@@ -166,12 +166,6 @@ const ProviderDashboard = () => {
             <p className="text-4xl font-extrabold text-yellow-500 mb-2">
               {userFromStorage.ratings}
             </p>
-            <a
-              href="#"
-              className="text-blue-600 hover:underline text-sm font-medium"
-            >
-              Read Reviews
-            </a>
           </div>
         </div>
 

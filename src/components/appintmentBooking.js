@@ -32,7 +32,7 @@ const AppointmentBookingPage = () => {
 
     if (userFromStorage) {
       const parsedUser = JSON.parse(userFromStorage);
-      setCustomerId(parsedUser.user_id);
+      setCustomerId(parsedUser.customer_id);
     }
 
     if (providerFromStorage) {

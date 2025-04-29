@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
@@ -7,6 +7,7 @@ import Footer from "./Footer";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [serviceQuery, setServiceQuery] = useState("");
 
   return (
     <div className="bg-gray-100 flex flex-col min-h-screen">
@@ -19,9 +20,12 @@ const HomePage = () => {
           <p className="text-gray-600 mt-4">
             Connect with skilled professionals for all your home service needs
           </p>
-          <SearchBar />
+          <SearchBar
+            serviceValue={serviceQuery}
+            onServiceChange={setServiceQuery}
+          />
         </div>
-        <ServiceCards />
+        <ServiceCards serviceFilter={serviceQuery} />
       </main>
       <Footer />
     </div>

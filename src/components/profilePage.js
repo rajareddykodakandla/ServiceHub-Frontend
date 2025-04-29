@@ -1,78 +1,103 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState({
-    fullName: "",
-    username: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    zipcode: "",
-    dob: "",
-    gender: "",
-  });
   const navigate = useNavigate();
+
+  // 1) Read user once
+  const stored = JSON.parse(localStorage.getItem("user")) || {};
+
+  // 2) Initialize state from that
+  const [profile, setProfile] = useState({
+    first_name:   stored.first_name   || "",
+    last_name:    stored.last_name    || "",
+    email:        stored.email        || "",
+    phone_number: stored.phone_number || "",
+    address:      stored.address      || "",
+    city:         stored.city         || "",
+    zip_code:     stored.zip_code     || "",
+    role:         stored.role         || "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
+    setProfile((p) => ({ ...p, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Profile updated successfully!");
+    try {
+      await axios.put(
+        `http://127.0.0.1:5000/servicehub/updateProfile/${stored.user_id}`,
+        {
+          first_name:   profile.first_name,
+          last_name:    profile.last_name,
+          email:        profile.email,
+          phone_number: profile.phone_number,
+          address:      profile.address,
+          city:         profile.city,
+          zip_code:     profile.zip_code,
+        }
+      );
+      localStorage.setItem("user", JSON.stringify({ ...stored, ...profile }));
+      alert("Profile updated successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update profile.");
+    }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/home');
+    localStorage.removeItem("user");
+    navigate("/home");
   };
 
   return (
     <div className="relative min-h-screen bg-gray-100">
+      {/* Sticky Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
+
       <main className="pt-[80px] pb-[80px] container mx-auto px-4 flex-grow overflow-y-auto">
         <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-10">
           <h1 className="text-4xl font-bold text-gray-800 text-center mb-10">
             Manage Your Profile
           </h1>
+
           <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Name */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
-                  Full Name
+                  First Name
                 </label>
                 <input
-                  type="text"
-                  name="fullName"
-                  value={profile.fullName}
+                  name="first_name"
+                  value={profile.first_name}
                   onChange={handleChange}
-                  placeholder="John Doe"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
-                  Username
+                  Last Name
                 </label>
                 <input
-                  type="text"
-                  name="username"
-                  value={profile.username}
+                  name="last_name"
+                  value={profile.last_name}
                   onChange={handleChange}
-                  placeholder="johndoe"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
             </div>
+
+            {/* Contact */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
@@ -83,7 +108,6 @@ const ProfilePage = () => {
                   name="email"
                   value={profile.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -93,26 +117,24 @@ const ProfilePage = () => {
                   Phone Number
                 </label>
                 <input
-                  type="tel"
-                  name="phone"
-                  value={profile.phone}
+                  name="phone_number"
+                  value={profile.phone_number}
                   onChange={handleChange}
-                  placeholder="+1 234 567 8900"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="md:col-span-2">
+
+            {/* Address */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
                 <label className="block text-gray-700 font-semibold mb-2">
                   Address
                 </label>
                 <input
-                  type="text"
                   name="address"
                   value={profile.address}
                   onChange={handleChange}
-                  placeholder="123 Main St"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -121,60 +143,41 @@ const ProfilePage = () => {
                   City
                 </label>
                 <input
-                  type="text"
                   name="city"
                   value={profile.city}
                   onChange={handleChange}
-                  placeholder="City"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
+            {/* ZIP & Role */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
                   ZIP Code
                 </label>
                 <input
-                  type="text"
-                  name="zipcode"
-                  value={profile.zipcode}
+                  name="zip_code"
+                  value={profile.zip_code}
                   onChange={handleChange}
-                  placeholder="ZIP Code"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
-                  Date of Birth
+                  Role
                 </label>
                 <input
-                  type="date"
-                  name="dob"
-                  value={profile.dob}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  name="role"
+                  value={profile.role}
+                  disabled
+                  className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3"
                 />
               </div>
             </div>
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Gender
-              </label>
-              <select
-                name="gender"
-                value={profile.gender}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="nonbinary">Non-Binary</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
+
+            {/* Actions */}
             <div className="text-center mt-10 flex justify-center gap-4">
               <button
                 type="submit"
@@ -193,6 +196,8 @@ const ProfilePage = () => {
           </form>
         </div>
       </main>
+
+      {/* Sticky Footer */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
         <Footer />
       </div>
